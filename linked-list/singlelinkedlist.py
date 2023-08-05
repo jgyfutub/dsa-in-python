@@ -127,7 +127,25 @@ class LinkedList:
         self.head=None
         self.tail=None
         self.length=0
+
+    def find_middle(self):
+        slow = self.head
+        fast = self.head
+        while fast is not None and fast.next is not None:
+            slow = slow.next
+            fast = fast.next.next
+        return slow
     
+    def reverse(self):
+        prev_node = None
+        current_node = self.head
+        while current_node is not None:
+            next_node = current_node.next
+            current_node.next = prev_node
+            prev_node = current_node
+            current_node = next_node
+        self.head, self.tail = self.tail, self.head
+
     def __str__(self):
         temp_node=self.head
         result=''
