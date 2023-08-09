@@ -170,7 +170,123 @@ class LinkedList:
                 node_values.add(current_node.next.value)
                 current_node = current_node.next
         self.tail = current_node
+
+    def isPalindrome(self, head):
+        slow = fast = head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
         
+        prev = None
+        while slow:
+            nxt = slow.next
+            slow.next = prev
+            prev = slow
+            slow = nxt
+            
+        while prev:
+            if head.val != prev.val:
+                return False
+            head = head.next
+            prev = prev.next
+        return True
+    
+    def removeElements(self, head, val):
+        dummy_head = Node(-1)
+        dummy_head.next = head
+ 
+        prev_node, curr_node = dummy_head, head
+        while curr_node:
+            if curr_node.val == val:
+                prev_node.next = curr_node.next
+            else:
+                prev_node = curr_node
+            curr_node = curr_node.next
+ 
+        return dummy_head.next
+    
+    def mergeTwoLists(self, l1, l2):
+        """
+        :type list1: Optional[ListNode]
+        :type list2: Optional[ListNode]
+        :rtype: Optional[ListNode]
+        """
+        prehead = Node(-1)
+ 
+        prev = prehead
+        while l1 and l2:
+            if l1.val <= l2.val:
+                prev.next = l1
+                l1 = l1.next
+            else:
+                prev.next = l2
+                l2 = l2.next            
+            prev = prev.next
+ 
+        # At least one of l1 and l2 can still have nodes at this point, so connect
+        # the non-null list to the end of the merged list.
+        prev.next = l1 if l1 is not None else l2
+ 
+        return prehead.next
+        
+    def middleNode(self, head):
+        fast = head
+        while fast and fast.next:
+            head = head.next
+            fast = fast.next.next
+            
+        return head
+    
+    def nthToLast(self,n):
+        pointer1=self.head
+        pointer2=self.head
+
+        for i in range(n):
+            if pointer2 is None:
+                return None
+            pointer2=pointer2.next
+
+        while pointer2:
+            pointer1=pointer1.next
+            pointer2=pointer2.next
+        return pointer1
+    
+    def partition(self,x):
+        curNode=self.head
+        self.tail=self.head
+
+        while curNode:
+            nextNode=curNode.next
+            curNode.next=None
+            if curNode.value<x:
+                curNode.next=self.head
+                self.head=curNode
+            else:
+                self.tail.next=curNode
+                self.tail=curNode
+            curNode=curNode.next
+
+        if self.tail.next is not None:
+            self.tail.next=None
+
+def sumList(LLa,LLb):
+    n1=LLa.head
+    n2=LLb.head
+    carry=0
+    ll=LinkedList()
+    while n1 or n2:
+        result=carry
+        if n1:
+            result+=n1.value
+            n1=n1.next
+        if n2:
+            result+=n2.value
+            n2=n2.next
+        ll.append(int(result%10))
+        carry=result/10
+
+    return ll
+    
 new_ll=LinkedList()
 new_ll.append(10)
 new_ll.append(20)
