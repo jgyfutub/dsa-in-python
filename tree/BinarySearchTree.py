@@ -102,3 +102,4 @@ def delete(rootNode):
     rootNode.leftChild=None
     rootNode.rightChild=None
     return "The BST has been deleted"
+
