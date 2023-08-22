@@ -1,3 +1,4 @@
+from collections import deque
 class Graph:
     def __init__(self):
         self.adjacency_list={}
@@ -33,6 +34,30 @@ class Graph:
             return True
         return False
 
+    def bfs(self,vertex):
+        visited=set()
+        visited.add(vertex)
+        queue=deque([vertex])
+        while queue:
+            current_vertex=queue.popleft()
+            print(current_vertex)
+            for adjacent_vertex in self.adjacency_list[current_vertex]:
+                if adjacent_vertex not in visited:
+                    visited.add(adjacent_vertex)
+                    queue.append(adjacent_vertex)
+
+    def dfs(self,vertex):
+        visited=set()
+        stack=[vertex]
+        while stack:
+            current_vertex=stack.pop()
+            if current_vertex not in visited:
+                print(current_vertex)
+                visited.add(current_vertex)
+            for adjacent_vertex in self.adjacency_list[current_vertex]:
+                if adjacent_vertex not in visited:
+                    stack.append(adjacent_vertex)
+                    
     def print_graph(self):
         for vertex in self.adjacency_list:
             print(vertex,":",self.adjacency_list[vertex])
