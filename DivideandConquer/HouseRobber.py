@@ -5,3 +5,4 @@ def HouseRobber(houses,currentIndex):
         stealFirstHouse=houses[currentIndex]+HouseRobber(houses,currentIndex+2)
         skipFirstHouse=HouseRobber(houses,currentIndex+1)
         return max(stealFirstHouse,skipFirstHouse)
+        
